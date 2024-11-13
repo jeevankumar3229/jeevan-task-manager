@@ -22,5 +22,6 @@ const db = {};
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 db.User = require('./user')(sequelize, DataTypes);
+db.Task= require('./task')(sequelize,DataTypes)
 
 module.exports = db;

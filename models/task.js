@@ -1,31 +1,46 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+const { Model, DataTypes } = require('sequelize');
+
+module.exports = (sequelize) => {
   class Task extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
     }
   }
-  Task.init({
-    id: { type: sequelize.INTEGER, primaryKey: true, autoIncrement: true },
-      title: { type: sequelize.STRING, allowNull: false },
-      description: sequelize.TEXT,
-      priority: { type: sequelize.STRING, allowNull: false },
-      dueDate: { type: sequelize.DATE, allowNull: false },
-      status: { type: sequelize.STRING, allowNull: false },
-      userId: { type: sequelize.INTEGER, references: { model: "Users", key: "id" } },
-      createdAt: sequelize.DATE,
-      updatedAt: sequelize.DATE,
-  }, {
-    sequelize,
-    modelName: 'Task',
-  });
+  Task.init(
+    {
+      id: { 
+        type: DataTypes.INTEGER, 
+        primaryKey: true, 
+        autoIncrement: true 
+      },
+      title: { 
+        type: DataTypes.STRING, 
+        allowNull: false 
+      },
+      description: DataTypes.TEXT,
+      priority: { 
+        type: DataTypes.STRING, 
+        allowNull: false 
+      },
+      dueDate: { 
+        type: DataTypes.DATE, 
+        allowNull: false 
+      },
+      status: { 
+        type: DataTypes.STRING, 
+        allowNull: false 
+      },
+      userId: { 
+        type: DataTypes.INTEGER, 
+        references: { model: "Users", key: "id" } 
+      },
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
+    },
+    {
+      sequelize,
+      modelName: 'Task',
+    }
+  );
   return Task;
 };

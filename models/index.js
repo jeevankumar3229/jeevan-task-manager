@@ -1,13 +1,10 @@
-import { Sequelize, DataTypes } from "sequelize";
-import dotenv from "dotenv";
-
-import config from "../config/config";
-import User from "./User";
-import Task from "./Task";
+const { Sequelize, DataTypes } = require('sequelize');
+const dotenv = require('dotenv');
+const config = require('../config/config');
 
 dotenv.config();
 
-const env = process.env.NODE_ENV || "development";
+const env = process.env.NODE_ENV || 'development';
 const dbConfig = config[env];
 
 const sequelize = new Sequelize(
@@ -21,9 +18,9 @@ const sequelize = new Sequelize(
   }
 );
 
-
-const db = {}
+const db = {};
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+db.User = require('./user')(sequelize, DataTypes);
 
-export default db;
+module.exports = db;

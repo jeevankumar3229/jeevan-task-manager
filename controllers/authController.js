@@ -5,7 +5,11 @@ const { User } = require("../models");
 exports.register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    console.log(password)
+    console.log("Received Password:", username); // Log to check if password is coming through
+    if (!password) {
+      return res.status(400).json({ error: "Password is required" });
+    }
+    
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ username, email, password: hashedPassword });
     res.status(201).json({ message: "User registered successfully", user });
@@ -13,6 +17,8 @@ exports.register = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
+
 
 exports.login = async (req, res) => {
   try {

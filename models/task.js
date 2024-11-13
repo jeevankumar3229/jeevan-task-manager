@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
       },
       description: DataTypes.TEXT,
       priority: { 
-        type: DataTypes.STRING, 
+        type: DataTypes.ENUM("low", "medium", "high"),
         allowNull: false 
       },
       dueDate: { 
@@ -27,19 +27,20 @@ module.exports = (sequelize) => {
         allowNull: false 
       },
       status: { 
-        type: DataTypes.STRING, 
+        type: DataTypes.ENUM("pending", "completed"),
         allowNull: false 
       },
       userId: { 
         type: DataTypes.INTEGER, 
-        references: { model: "Users", key: "id" } 
-      },
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+        references: { model: "Users", key: "id" }, 
+        onDelete:"CASCADE",
+        onUpdate:"CASCADE"
+      }
     },
     {
       sequelize,
       modelName: 'Task',
+      timestamps:true
     }
   );
   return Task;

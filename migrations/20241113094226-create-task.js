@@ -10,30 +10,44 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       description: {
         type: Sequelize.TEXT
       },
       priority: {
-        type: Sequelize.STRING
+        type:Sequelize.ENUM("low", "medium", "high"),
+        allowNull:false
+
       },
       dueDate: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull:false
       },
       status: {
-        type: Sequelize.STRING
+        type: Sequelize.ENUM("pending", "completed"),
+        allowNull:false
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Users",
+          key: "id",
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn("NOW"),
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn("NOW"),
       }
     });
   },

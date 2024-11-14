@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const config=require('../config/config')
 
 module.exports = (req, res, next) => {
   const token = req.header('Authorization')?.replace('Bearer ', ''); 
@@ -8,7 +9,7 @@ module.exports = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_TOKEN);
+    const decoded = jwt.verify(token, config["token"]);
     req.user = decoded;
     next();
   } catch (error) {

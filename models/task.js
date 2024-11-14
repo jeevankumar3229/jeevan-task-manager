@@ -40,7 +40,8 @@ module.exports = (sequelize) => {
     {
       sequelize,
       modelName: 'Task',
-      timestamps:true
+      timestamps:true,
+      paranoid:true
     }
   );
   return Task;

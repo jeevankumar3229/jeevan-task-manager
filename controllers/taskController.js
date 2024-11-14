@@ -16,7 +16,7 @@ exports.getTasks = async (req, res) => {
     }
 
     const tasks = await Task.findAll({ where, order: orderBy });
-    res.json(tasks);
+    res.status(200).json(tasks);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -27,7 +27,7 @@ exports.getTaskById = async (req, res) => {
     const task = await Task.findOne({ where: { id: req.params.id, userId: req.user.id } });
     if (!task) return res.status(404).json({ error: "Task not found" });
 
-    res.json(task);
+    res.status(200).json(task);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -70,7 +70,7 @@ exports.updateTask = async (req, res) => {
 
     await task.save();
 
-    res.json(task);
+    res.status(200).json(task);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -85,7 +85,7 @@ exports.deleteTask = async (req, res) => {
     if (!task) return res.status(404).json({ error: "Task not found" });
 
     await task.destroy();
-    res.json({ message: "Task deleted successfully" });
+    res.status(204).json({ message: "Task deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

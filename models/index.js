@@ -1,11 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const dotenv = require('dotenv');
-const config = require('../config/config');
-
-dotenv.config();
-
-const env = process.env.NODE_ENV || 'development';
-const dbConfig = config[env];
+const dbConfig = require('../config/config');
 
 const sequelize = new Sequelize(
   dbConfig.database,
@@ -21,7 +16,7 @@ const sequelize = new Sequelize(
 const db = {};
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-db.User = require('./user')(sequelize, DataTypes);
-db.Task= require('./task')(sequelize,DataTypes)
+db.User = require('./user')(sequelize);
+db.Task= require('./task')(sequelize)
 
 module.exports = db;

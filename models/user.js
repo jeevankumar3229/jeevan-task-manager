@@ -31,7 +31,8 @@ module.exports = (sequelize) => {
     {
       sequelize,
       modelName: 'User',
-      timestamps:true
+      timestamps:true,
+      paranoid:true
     }
   );
   return User;
